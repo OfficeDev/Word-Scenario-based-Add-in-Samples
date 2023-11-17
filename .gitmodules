@@ -1,0 +1,3 @@
+[submodule "WordSampleAddIn"]
+	path = WordSampleAddIn
+	url = https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples.git
