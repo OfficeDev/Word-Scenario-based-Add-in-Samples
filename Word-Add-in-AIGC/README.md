@@ -36,7 +36,7 @@ Learn how to build a practical Office Add-in with cool features for content gene
 
 ## Run the sample
 ### Run with a single command
-Take the following step to run this sample。
+Take the following step to run this sample.
 1. Run the following command.
     ```console
     bash one-line-script.sh
