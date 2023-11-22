@@ -294,7 +294,7 @@ export default class Home extends React.Component {
                         <>
                         
                             <div className="survey"><RightOutlined />
-                                <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR8GFRbAYEV9Hmqgjcbr7lOdUNVAxQklNRkxCWEtMMFRFN0xXUFhYVlc5Ni4u">
+                                <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR8GFRbAYEV9Hmqgjcbr7lOdUNVAxQklNRkxCWEtMMFRFN0xXUFhYVlc5Ni4u" target="_blank">
                                     How do you like this sample? Tell us more!
                                 </a>
                             </div>
@@ -315,19 +315,19 @@ export default class Home extends React.Component {
                     <div className="bottom_item">
                         <RightOutlined className="item_icon" />
                         <div className="bottom_item_info">
-                            <a href="https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples">Start your project from this sample</a>
+                            <a href="https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples/tree/main/Word-Add-in-AIGC" target="_blank">Start your project from this sample</a>
                         </div>
                     </div>
                     <div className="bottom_item">
                         <RightOutlined className="item_icon" />
                         <div className="bottom_item_info">
-                            <a href="https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples">See more samples</a>
+                            <a href="https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples" target="_blank">See more samples</a>
                         </div>
                     </div>
                     <div className="bottom_item">
                         <RightOutlined className="item_icon" />
                         <div className="bottom_item_info">
-                            <a href="https://learn.microsoft.com/en-us/office/dev/add-ins/quickstarts/word-quickstart?tabs=yeomangenerator">Office add-in documentation</a>
+                            <a href="https://learn.microsoft.com/en-us/office/dev/add-ins/quickstarts/word-quickstart?tabs=yeomangenerator" target="_blank">Office add-in documentation</a>
                         </div>
                     </div>
                 </div>
