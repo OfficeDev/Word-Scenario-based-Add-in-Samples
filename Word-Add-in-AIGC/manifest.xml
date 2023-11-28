@@ -8,7 +8,7 @@
   <Description DefaultValue="An add-in that shows how to generate content in Word with AI."/>
   <IconUrl DefaultValue="https://officedev.github.io/Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC/assets/icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://officedev.github.io/Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC/assets/icon-64.png"/>
-  <SupportUrl DefaultValue="https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples/tree/main/Word-Add-in-AIGC"/>
+  <SupportUrl DefaultValue="https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples/blob/main/Word-Add-in-AIGC/README.md"/>
   <Hosts>
     <Host Name="Document"/>
   </Hosts>
