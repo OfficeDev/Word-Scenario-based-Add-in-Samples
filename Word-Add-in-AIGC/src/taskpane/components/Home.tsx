@@ -56,6 +56,7 @@ export default class Home extends React.Component {
             this.setState({ titleLoading: true });
             const range = context.document.getSelection();
             const titleRange = range.insertText(title, Word.InsertLocation.start);
+            titleRange.style = "Heading 1";
             await context.sync();
             //locate the inserted title
             titleRange.select();
@@ -149,8 +150,8 @@ export default class Home extends React.Component {
                         const para = levelParas.items[j];
                         para.list.setLevelNumbering(0, Word.ListNumbering.upperRoman)
                         para.font.bold = true;
-                        await context.sync();
                     }
+                    await context.sync();
                 } catch (error) {
                     console.log(error);
                 }
@@ -166,6 +167,21 @@ export default class Home extends React.Component {
                     await context.sync();
                 }
             }
+
+            //set TBD to be red and DONE to be green
+            const tbdRanges = context.document.body.search("TBD", { matchCase: true });
+            const doneRanges = context.document.body.search("DONE", { matchCase: true });
+            tbdRanges.load();
+            doneRanges.load();
+            await context.sync();
+            for (let i = 0; i < tbdRanges.items.length; i++) {
+                tbdRanges.items[i].font.highlightColor = "yellow";
+            }
+            await context.sync();
+            for (let i = 0; i < doneRanges.items.length; i++) {
+                doneRanges.items[i].font.highlightColor = "Turquoise";
+            }
+            await context.sync();
 
         }).catch((error) => {
             message.error(error.message);

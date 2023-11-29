@@ -54,7 +54,6 @@ export const dropdownMenus = {
 }
 
 export const AzureAI = {
-    baseUrl: "https://augloop-cs-test-scus-shared-open-ai-0.openai.azure.com/openai/deployments/text-davinci-003/completions",
     apiversion: "2023-05-15",
     apikey: apiKey,
     endpoint: endpoint,
