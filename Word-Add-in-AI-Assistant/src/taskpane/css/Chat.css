@@ -1,0 +1,98 @@
+.chatWrapper {
+    width: calc(100% - 9px);
+    margin: 4px;
+    height: calc(100% - 9px);
+    border-left: 0.5px solid gray;
+    border-right: 0.5px solid gray;
+    border-top: 0.5px solid gray;
+    background-color: #f0f5f5;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    width: 100%;
+    flex: 1;
+    padding: 35px;
+}
+
+.header {
+    position: absolute;
+    width: calc(100% - 8px);
+    left: 4px;
+    top: 4px;
+    height: 30px;
+    background-color: rgb(126, 169, 171);
+    vertical-align: center;
+    z-index: 99;
+}
+
+.back {
+    margin: auto 0;
+    cursor: pointer;
+}
+
+.message {
+    width: 100%;
+    display: block;
+    padding: 1rem 0.1rem;
+}
+
+.clear:after {
+    clear: both;
+    content: "";
+    display: block;
+    visibility: hidden;
+}
+
+.left {
+    float: left;
+    max-width: 80%;
+    background-color: azure;
+    border: 1px solid gray;
+    border-radius: 2px;
+}
+
+.right {
+    float: right;
+    max-width: 80%;
+    background-color: greenyellow;
+    border: 1px solid gray;
+    border-radius: 2px;
+}
+
+.configKey {
+    text-decoration: underline;
+    color: blue;
+}
+
+.inputWrapper {
+    width: calc(100% - 8px);
+    position: absolute;
+    left: 4px;
+    bottom: 4px;
+    height: 30px;
+    padding: 0 1px;
+}
+
+.sendIcon {
+    width: 30px;
+    height: 30px;
+    float: left;
+    cursor: pointer;
+    font-size:25px;
+    background-color: #f0f5f5;
+}
+
+.sendIcon:hover {
+    color: #0066ff;
+    border-color: #0066ff;
+}
+
+.inputBox {
+    width: calc(100% - 30px);
+    height: 30px;
+    float: left;
+}

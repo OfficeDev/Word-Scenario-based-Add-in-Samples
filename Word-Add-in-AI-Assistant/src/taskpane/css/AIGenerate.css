@@ -1,0 +1,34 @@
+.generate {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    text-align: center;
+}
+
+.generate.title {
+    width: 100%;
+    align-self: flex-start;
+    font-size: x-large;
+    font-weight: bolder;
+}
+
+.generate.description {
+    width: 100%;
+    align-self: center;
+}
+
+.spin {
+    min-width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.submit {
+    width: 100%;
+    height: 40px;
+    margin: 2px 0;
+}
