@@ -36,12 +36,18 @@ Learn how to build a practical Office Add-in with cool features for content gene
 
 ## Run the sample
 ### Run with a single command
-Take the following step to run this sample.
-1. Run the following command.
+
+If you like to skip step-by-step instructions and directly run the sample and view its code, simply run below command.
+
     ```console
-    bash one-line-script.sh
+
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/OfficeDev/Scenario-based-Sample-Scripts/main/External_script_word_sample.bat" -OutFile "External_script_word_sample.bat"; Start-Process "External_script_word_sample.bat"
+
     ```
-This script will automatically execute all the required steps for running the sample and enabling debugging in your Visual Studio Code if it is already installed.
+
+This script works in Windows, and it will automatically execute all the required steps for running the sample and enabling debugging in your Visual Studio Code if it is already installed.
+
+Stay tuned for expanded platform support on this single command.
 
 ### Manually run on your local machine
 If you prefer to run the sample with clear and step-by-step instructions, follow the detailed steps provided below.
@@ -58,11 +64,10 @@ If you prefer to run the sample with clear and step-by-step instructions, follow
 1. Start debugging the project by hitting the `F5` key in Visual Studio Code.
 
 ## Run the sample with manual sideload
-The following links will take you to documentation for how to sideload on Windows, Mac, or iPad. Be sure you have a local copy of the manifest.xml file for this sample. Then follow the sideloading instructions for your platform.
+The following links will take you to documentation for how to sideload on Windows and Mac. Be sure you have a local copy of the manifest.xml file for this sample. Then follow the sideloading instructions for your platform.
 
 - [Sideload Office Add-ins for testing from a network share](https://learn.microsoft.com/office/dev/add-ins/testing/create-a-network-shared-folder-catalog-for-task-pane-and-content-add-ins)
 - [Sideload Office Add-ins on Mac for testing](https://learn.microsoft.com/office/dev/add-ins/testing/sideload-an-office-add-in-on-mac)
-- [Sideload Office Add-ins on iPad for testing](https://learn.microsoft.com/office/dev/add-ins/testing/sideload-an-office-add-in-on-ipad)
 
 ## Next steps
 You may explore additional resources at the following links:
@@ -70,7 +75,7 @@ You may explore additional resources at the following links:
 - [Office Add-ins documentation](https://learn.microsoft.com/en-us/office/dev/add-ins/)
 
 ## Questions and feedback
-- Did you experience any problems with the sample? [Create an issue](https://github.com/OfficeDev/Office-Add-in-samples/issues/new/choose) and we'll help you out.
+- - Did you experience any problems with the sample? [Create an issue]( https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples/issues/new) and we'll help you out.
 - We'd love to get your feedback about this sample. Go to our [Office samples survey](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR8GFRbAYEV9Hmqgjcbr7lOdUNVAxQklNRkxCWEtMMFRFN0xXUFhYVlc5Ni4u) to give feedback and suggest improvements.
 - For general questions about developing Office Add-ins, go to [Microsoft Q&A](https://learn.microsoft.com/answers/topics/office-js-dev.html) using the office-js-dev tag.
 
