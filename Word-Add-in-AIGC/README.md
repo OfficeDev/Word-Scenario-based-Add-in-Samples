@@ -1,20 +1,3 @@
----
-page_type: sample
-urlFragment: Word-Add-in-AIGC
-products:
-  - office-add-ins
-  - office-word
-  - office
-languages:
-  - typescript
-extensions:
-  contentType: samples
-  technologies:
-    - Add-ins
-  createdDate: '11/17/2023 10:00:00 AM'
-description: 'Create a Word Add-in that produces content.'
----
-
 # Create a Word Add-in that produces content
 
 ## Summary
@@ -27,19 +10,22 @@ Learn how to build a practical Office Add-in with cool features for content gene
 - Customize the document style
 - Insert predefined image into the document
 
-## Applies to
-- Word on Windows, Mac, and in a browser.
-
 ## Prerequisites
 - Microsoft 365
 - *Optional*: If you're interested in exploring AIGC, follow the procedure to request an Azure OpenAI service account. Find more details at https://learn.microsoft.com/en-us/azure/ai-services/openai/quickstart?tabs=command-line%2Cpython&pivots=rest-api.
 
-## Run the sample
+## Play with the sample add-in
+The following links will take you to documentation for how to sideload on Windows and Mac. Be sure you have a local copy of the manifest.xml file for this sample. Then follow the sideloading instructions for your platform.
+- [Sideload Office Add-ins for testing from a network share](https://learn.microsoft.com/office/dev/add-ins/testing/create-a-network-shared-folder-catalog-for-task-pane-and-content-add-ins)
+- [Sideload Office Add-ins on Mac for testing](https://learn.microsoft.com/office/dev/add-ins/testing/sideload-an-office-add-in-on-mac)
+
+
+## Run the sample code and debug
 ### Run with a single command
 
 If you like to skip step-by-step instructions and directly run the sample and view its code, simply run below command.
 
-    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/OfficeDev/Scenario-based-Sample-Scripts/main/External_script_word_sample.bat" -OutFile "External_script_word_sample.bat"; Start-Process "External_script_word_sample.bat"
+    iwr aka.ms/wordaddin/aigc -o launch_addin.bat; saps launch_addin.bat
 
 This script works in Windows, and it will automatically execute all the required steps for running the sample and enabling debugging in your Visual Studio Code if it is already installed.
 
@@ -58,12 +44,6 @@ If you prefer to run the sample with clear and step-by-step instructions, follow
     npm start
     ```
 1. Start debugging the project by hitting the `F5` key in Visual Studio Code.
-
-## Run the sample with manual sideload
-The following links will take you to documentation for how to sideload on Windows and Mac. Be sure you have a local copy of the manifest.xml file for this sample. Then follow the sideloading instructions for your platform.
-
-- [Sideload Office Add-ins for testing from a network share](https://learn.microsoft.com/office/dev/add-ins/testing/create-a-network-shared-folder-catalog-for-task-pane-and-content-add-ins)
-- [Sideload Office Add-ins on Mac for testing](https://learn.microsoft.com/office/dev/add-ins/testing/sideload-an-office-add-in-on-mac)
 
 ## Next steps
 You may explore additional resources at the following links:
