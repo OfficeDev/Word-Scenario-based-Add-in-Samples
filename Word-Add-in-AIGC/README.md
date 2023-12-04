@@ -21,15 +21,19 @@ The following links will take you to documentation for how to sideload on Window
 
 
 ## Run the sample code and debug
-### Run with a single command
-
-If you like to skip step-by-step instructions and directly run the sample and view its code, simply run below command.
-
-    iwr aka.ms/wordaddin/aigc -o launch_addin.bat; saps launch_addin.bat
-
-This script works in Windows, and it will automatically execute all the required steps for running the sample and enabling debugging in your Visual Studio Code if it is already installed.
-
-Stay tuned for expanded platform support on this single command.
+### Manually run on your local machine
+If you prefer to run the sample with clear and step-by-step instructions, follow the detailed steps provided below.
+1. Install a recent version of [npm](https://www.npmjs.com/get-npm) and [Node.js](https://nodejs.org/) on your computer. To verify if you've already installed these tools, run the commands `node -v` and `npm -v` in your terminal.
+2. Clone the repo to your local workspace or directly download the source code.
+3. Open the project in Visual Studio Code.
+4. *Optional*: If you're interested in exploring AIGC, with prerequisites all satisfied, you can fill in the parameters apiKey, endpoint and deployment in src/taskpane/components/utility/AIData.tsx to persist the Azure OpenAI account or you can skip this step to fill in the account when you operate the AI related UI.
+5. If you cannot get an OpenAI account, just try the predefined functionality. Just go ahead.
+6. cd src folder and execute following commands:
+    ```console
+    npm install
+    npm start
+    ```
+7. Start debugging the project by hitting the `F5` key in Visual Studio Code.
 
 ## Next steps
 You may explore additional resources at the following links:
