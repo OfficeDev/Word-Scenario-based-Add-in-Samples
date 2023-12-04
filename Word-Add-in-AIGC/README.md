@@ -39,11 +39,7 @@ Learn how to build a practical Office Add-in with cool features for content gene
 
 If you like to skip step-by-step instructions and directly run the sample and view its code, simply run below command.
 
-    ```console
-
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/OfficeDev/Scenario-based-Sample-Scripts/main/External_script_word_sample.bat" -OutFile "External_script_word_sample.bat"; Start-Process "External_script_word_sample.bat"
-
-    ```
+    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/OfficeDev/Scenario-based-Sample-Scripts/main/External_script_word_sample.bat" -OutFile "External_script_word_sample.bat"; Start-Process "External_script_word_sample.bat"
 
 This script works in Windows, and it will automatically execute all the required steps for running the sample and enabling debugging in your Visual Studio Code if it is already installed.
 
