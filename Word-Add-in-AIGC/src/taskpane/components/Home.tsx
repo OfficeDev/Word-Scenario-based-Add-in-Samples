@@ -50,16 +50,30 @@ export default class Home extends React.Component {
         _deployment = deployment;
     }
 
+    insertTemplateDocument = () => {
+        return Word.run(async (context) => {
+            this.setState({ importTemplateLoading: true });
+            context.document.body.clear();
+            context.document.body.insertFileFromBase64(predefinedDocumentTemplateBase64, Word.InsertLocation.start);
+            //locate the start position of the document
+            context.document.body.getRange(Word.RangeLocation.start).select();
+            await context.sync();
+        }).catch((error) => {
+            message.error(error.message);
+        }).finally(() => {
+            this.setState({ importTemplateLoading: false, displayMainFunc: true });
+        });
+    }
+
     //This is the code interacting with the Word document
-    insertTitle = (title: string) => {
+    insertTitle = (titleStr: string) => {
         return Word.run(async (context) => {
             this.setState({ titleLoading: true });
-            const range = context.document.getSelection();
-            const titleRange = range.insertText(title, Word.InsertLocation.start);
-            titleRange.style = "Heading 1";
-            await context.sync();
+            const title = context.document.body.insertParagraph(titleStr, Word.InsertLocation.start);
+            title.style = "Heading 1";
             //locate the inserted title
-            titleRange.select();
+            title.select();
+            await context.sync();
         }).catch((error) => {
             message.error(error.message);
         }).finally(async () => {
@@ -72,9 +86,9 @@ export default class Home extends React.Component {
             this.setState({ citationLoading: true });
             const range = context.document.getSelection();
             const footnote = range.insertFootnote(citation);
-            await context.sync();
             //locate the inserted footnote
             footnote.body.getRange().select();
+            await context.sync();
         }).catch((error) => {
             message.error(error.message);
         }).finally(() => {
@@ -82,14 +96,14 @@ export default class Home extends React.Component {
         });
     }
 
-    insertComment = (comment: string) => {
+    insertComment = (commentStr: string) => {
         return Word.run(async (context) => {
             this.setState({ commentLoading: true });
             const range = context.document.getSelection();
-            const insComment = range.insertComment(comment);
-            await context.sync();
+            const comment = range.insertComment(commentStr);
             //locate the inserted comment
-            insComment.getRange().select();
+            comment.getRange().select();
+            await context.sync();
         }).catch((error) => {
             message.error(error.message);
         }).finally(() => {
@@ -102,9 +116,9 @@ export default class Home extends React.Component {
             this.setState({ pictureLoading: true });
             const range = context.document.getSelection();
             const picture = range.insertInlinePictureFromBase64(pictureBase64, Word.InsertLocation.start);
-            await context.sync();
             //locate the inserted picture
             picture.getRange().select();
+            await context.sync();
         }).catch((error) => {
             message.error(error.message);
         }).finally(() => {
@@ -115,21 +129,19 @@ export default class Home extends React.Component {
     formatDocument = () => {
         return Word.run(async (context) => {
             this.setState({ formatLoading: true });
-
-            //Set title to Heading 1 and text center alignment
+            //set title to Heading 1 and text center alignment
             const firstPara = context.document.body.paragraphs.getFirst();
             firstPara.style = "Heading 1";
             firstPara.alignment = "Centered";
-            firstPara.font.highlightColor = "#C0C0C0";
             await context.sync();
 
-            //Set unify the Headings to Heading2 and bold font
+            //unify the Headings to Heading2 and bold font
             const paragraphs = context.document.body.paragraphs;
             paragraphs.load();
             await context.sync();
             //skip the Title
             for (let i = 1; i < paragraphs.items.length; i++) {
-                if (paragraphs.items[i].style.startsWith("Heading")) {
+                if (paragraphs.items[i].style == "Subtitle") {
                     paragraphs.items[i].style = "Heading 2";
                     paragraphs.items[i].font.bold = true;
                 }
@@ -141,23 +153,19 @@ export default class Home extends React.Component {
             lists.load();
             await context.sync();
             for (let i = 0; i < lists.items.length; i++) {
-                try {
-                    const list = lists.items[i];
-                    const levelParas = list.getLevelParagraphs(0);
-                    levelParas.load();
-                    await context.sync();
-                    for (let j = 0; j < levelParas.items.length; j++) {
-                        const para = levelParas.items[j];
-                        para.list.setLevelNumbering(0, Word.ListNumbering.upperRoman)
-                        para.font.bold = true;
-                    }
-                    await context.sync();
-                } catch (error) {
-                    console.log(error);
+                const list = lists.items[i];
+                list.setLevelNumbering(0, Word.ListNumbering.upperRoman);
+                const levelParas = list.getLevelParagraphs(0);
+                levelParas.load();
+                await context.sync();
+                for (let j = 0; j < levelParas.items.length; j++) {
+                    const para = levelParas.items[j];
+                    para.font.bold = true;
                 }
+                await context.sync();
             }
 
-            //set the picture to be center alignment
+            //if there's pictures, set the pictures to be center alignment
             const pictures = context.document.body.inlinePictures;
             pictures.load();
             await context.sync();
@@ -168,7 +176,7 @@ export default class Home extends React.Component {
                 }
             }
 
-            //set TBD to be red and DONE to be green
+            //if there's TBD or DONE keywords, set TBD to be red and DONE to be green
             const tbdRanges = context.document.body.search("TBD", { matchCase: true });
             const doneRanges = context.document.body.search("DONE", { matchCase: true });
             tbdRanges.load();
@@ -187,19 +195,6 @@ export default class Home extends React.Component {
             message.error(error.message);
         }).finally(() => {
             this.setState({ formatLoading: false })
-        });
-    }
-
-    insertTemplateDocument = () => {
-        return Word.run(async (context) => {
-            this.setState({ importTemplateLoading: true });
-            context.document.body.clear();
-            context.document.body.insertFileFromBase64(predefinedDocumentTemplateBase64, Word.InsertLocation.start);
-            await context.sync();
-        }).catch((error) => {
-            message.error(error.message);
-        }).finally(() => {
-            this.setState({ importTemplateLoading: false, displayMainFunc: true });
         });
     }
 
@@ -267,88 +262,121 @@ export default class Home extends React.Component {
 
         const addPictureItems: MenuProps['items'] = this.generateMenuItems("picture");
 
-        return <>
-            <div className="wrapper">
-                <div className="main_content">
-                    {this.state.displayMainFunc ?
-
-                        <>
-                            <div className="back">
-                                <div className="cursor" onClick={this.back}>
-                                    <LeftOutlined />
-                                    <span>Back</span>
+        return (
+          <>
+                <div className="wrapper">
+                    <div className="main_content">
+                        {this.state.displayMainFunc ? (
+                            <>
+                                <div className="back">
+                                    <div className="cursor" onClick={this.back}>
+                                        <LeftOutlined />
+                                        <span>Back</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="main_func">
-                                <Dropdown menu={{ items: addTitleItems }} placement="bottom" className="generate_button" arrow>
-                                    <Button loading={this.state.titleLoading}>Add a title</Button>
-                                </Dropdown>
-                                <Dropdown menu={{ items: addCommentItems }} placement="bottom" className="generate_button" arrow>
-                                    <Button loading={this.state.commentLoading}>Add comments</Button>
-                                </Dropdown>
-                                <Dropdown menu={{ items: addCitationItems }} placement="bottom" className="generate_button" arrow>
-                                    <Button loading={this.state.citationLoading}>Add citation in footnotes</Button>
-                                </Dropdown>
-                                <Dropdown menu={{ items: formatDocumentItems }} placement="bottom" className="generate_button" arrow>
-                                    <Button loading={this.state.formatLoading}>Format the document</Button>
-                                </Dropdown>
-                                <Dropdown menu={{ items: addPictureItems }} placement="bottom" className="generate_button" arrow>
-                                    <Button loading={this.state.pictureLoading}>Add a picture</Button>
-                                </Dropdown>
-                            </div>
-                            <AIKeyConfigDialog
-                                isOpen={this.state.openKeyConfigDialog}
-                                endpoint={_endpoint}
-                                deployment={_deployment}
-                                apiKey={_apiKey}
-                                setOpen={this.open.bind(this)}
-                                setKey={this.setKey.bind(this)}
-                                setEndpoint={this.setEndpoint.bind(this)}
-                                setDeployment={this.setDeployment.bind(this)} />
-                        </>
-                        :
-                        <>
-                        
-                            <div className="survey"><RightOutlined />
-                                <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR8GFRbAYEV9Hmqgjcbr7lOdUNVAxQklNRkxCWEtMMFRFN0xXUFhYVlc5Ni4u" target="_blank">
-                                    How do you like this sample? Tell us more!
+                                <div className="main_func">
+                                    <Dropdown menu={{ items: addTitleItems }} placement="bottom" className="generate_button" arrow>
+                                        <Button loading={this.state.titleLoading}>Add a title</Button>
+                                    </Dropdown>
+                                    <Dropdown menu={{ items: addCommentItems }} placement="bottom" className="generate_button" arrow>
+                                        <Button loading={this.state.commentLoading}>Add comments</Button>
+                                    </Dropdown>
+                                    <Dropdown menu={{ items: addCitationItems }} placement="bottom" className="generate_button" arrow>
+                                        <Button loading={this.state.citationLoading}>Add citation in footnotes</Button>
+                                    </Dropdown>
+                                    <Dropdown
+                                        menu={{ items: formatDocumentItems }}
+                                        placement="bottom"
+                                        className="generate_button"
+                                        arrow
+                                    >
+                                        <Button loading={this.state.formatLoading}>Format the document</Button>
+                                    </Dropdown>
+                                    <Dropdown menu={{ items: addPictureItems }} placement="bottom" className="generate_button" arrow>
+                                        <Button loading={this.state.pictureLoading}>Add a picture</Button>
+                                    </Dropdown>
+                                </div>
+                                <AIKeyConfigDialog
+                                    isOpen={this.state.openKeyConfigDialog}
+                                    endpoint={_endpoint}
+                                    deployment={_deployment}
+                                    apiKey={_apiKey}
+                                    setOpen={this.open.bind(this)}
+                                    setKey={this.setKey.bind(this)}
+                                    setEndpoint={this.setEndpoint.bind(this)}
+                                    setDeployment={this.setDeployment.bind(this)}
+                                />
+                            </>
+                        ) : (
+                            <>
+                                <div className="survey">
+                                    <RightOutlined />
+                                    <a
+                                        href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR8GFRbAYEV9Hmqgjcbr7lOdUNVAxQklNRkxCWEtMMFRFN0xXUFhYVlc5Ni4u"
+                                        target="_blank"
+                                    >
+                                        How do you like this sample? Tell us more!
+                                    </a>
+                                </div>
+                                <div className="header">
+                                    <div className="desc">
+                                        This add-in demonstrates Word add-in capabilities to insert and format content either generated
+                                        by AI or predefined.
+                                    </div>
+                                    <div className="desc">
+                                        Please start with importing a sample document by clicking below button.
+                                    </div>
+                                </div>
+                                <Button
+                                    className="generate_button"
+                                    onClick={this.insertTemplateDocument}
+                                    loading={this.state.importTemplateLoading}
+                                >
+                                    Generate Sample Document
+                                </Button>
+                                <div className="generate_button_or">or</div>
+                                <Button className="generate_button" onClick={this.openMainFunc}>
+                                    Skip With Current Document
+                                </Button>
+                            </>
+                        )}
+                    </div>
+                    <div className="bottom">
+                        <div className="item_desc">For next steps:</div>
+                        <div className="bottom_item">
+                            <RightOutlined className="item_icon" />
+                            <div className="bottom_item_info">
+                                <a
+                                    href="https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples/tree/main/Word-Add-in-AIGC"
+                                    target="_blank"
+                                >
+                                    Start your project from this sample
                                 </a>
                             </div>
-                            <div className="header">
-                                <div className="desc">This add-in demonstrate Word add-in capabilities to insert and format content either generated by AI or predefined.</div>
-                                <div className="desc">Please start with importing a sample document by clicking below button.</div>
+                        </div>
+                        <div className="bottom_item">
+                            <RightOutlined className="item_icon" />
+                            <div className="bottom_item_info">
+                                <a href="https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples" target="_blank">
+                                    See more samples
+                                </a>
                             </div>
-                            <Button className="generate_button"
-                                onClick={this.insertTemplateDocument}
-                                loading={this.state.importTemplateLoading}>
-                                Generate Sample Document
-                            </Button>
-                        </>
-                    }
-                </div>
-                <div className="bottom">
-                    <div className="item_desc">For next steps:</div>
-                    <div className="bottom_item">
-                        <RightOutlined className="item_icon" />
-                        <div className="bottom_item_info">
-                            <a href="https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples/tree/main/Word-Add-in-AIGC" target="_blank">Start your project from this sample</a>
                         </div>
-                    </div>
-                    <div className="bottom_item">
-                        <RightOutlined className="item_icon" />
-                        <div className="bottom_item_info">
-                            <a href="https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples" target="_blank">See more samples</a>
-                        </div>
-                    </div>
-                    <div className="bottom_item">
-                        <RightOutlined className="item_icon" />
-                        <div className="bottom_item_info">
-                            <a href="https://learn.microsoft.com/en-us/office/dev/add-ins/quickstarts/word-quickstart?tabs=yeomangenerator" target="_blank">Office add-in documentation</a>
+                        <div className="bottom_item">
+                            <RightOutlined className="item_icon" />
+                            <div className="bottom_item_info">
+                                <a
+                                    href="https://learn.microsoft.com/en-us/office/dev/add-ins/quickstarts/word-quickstart?tabs=yeomangenerator"
+                                    target="_blank"
+                                >
+                                    Office add-in documentation
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div >
-        </>
+            </>
+        );
 
     }
 }

@@ -30,6 +30,7 @@ export const post = (url: string, data = {}, config: AxiosRequestConfig = {}): P
             })
             .catch((error) => {
                 console.error(error);
+                errorHandler(error);
             });
     });
 
