@@ -53,6 +53,7 @@ export default class Home extends React.Component {
     insertTemplateDocument = () => {
         return Word.run(async (context) => {
             this.setState({ importTemplateLoading: true });
+            context.document.body.insertText("\n", Word.InsertLocation.end);
             const range = context.document.body.insertFileFromBase64(predefinedDocumentTemplateBase64, Word.InsertLocation.end);
             //locate the start position of the document
             range.getRange(Word.RangeLocation.start).select();
