@@ -1,0 +1,50 @@
+name: Compress Projects and Release
+
+on:
+  workflow_dispatch:
+  create:
+    tags:
+      - '*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install zip
+        run: sudo apt-get install zip
+
+      - name: Compress directories
+        run: |
+          for dir in */; do
+            base=$(basename "$dir")
+            zip -r "${base}.zip" "$dir"
+            echo "${base}.zip" >> zipfiles.txt
+          done
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }} # This will be your-tag-name for a tag
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Assets
+        run: |
+          upload_url="${{ steps.create_release.outputs.upload_url }}"
+          upload_url="${upload_url/\{?name,label\}/}"
+          for asset_path in $(cat zipfiles.txt); do
+            asset_name=$(basename $asset_path)
+            echo "Uploading $asset_path as $asset_name"
+            curl \
+              --data-binary @"$asset_path" \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Content-Type: $(file -b --mime-type $asset_path)" \
+              "$upload_url?name=$asset_name"
+          done
