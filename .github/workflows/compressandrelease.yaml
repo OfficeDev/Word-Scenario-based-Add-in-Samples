@@ -35,27 +35,9 @@ jobs:
       #       echo ::set-output name=tag::$TAG
       #     fi
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      - name: Create Release and Upload Assets
+        uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
-
-      - name: Upload Release Assets
-        id: upload-release-assets
-        run: |
-          while IFS= read -r asset_path
-          do
-            asset_name=$(basename $asset_path)
-            echo "Uploading $asset_path as $asset_name"
-            curl \
-              --data-binary @"$asset_path" \
-              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-              -H "Content-Type: $(file -b --mime-type $asset_path)" \
-              "${{ steps.create_release.outputs.upload_url }}=$asset_name"
-          done < zipfiles.txt
+          files: zipfiles.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
