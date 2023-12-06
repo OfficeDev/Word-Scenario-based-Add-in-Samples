@@ -1,0 +1,47 @@
+name: Compress Projects and Release
+
+on:
+  push:
+    branches:
+      - main  # Trigger this workflow on push to main branch
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install zip
+        run: sudo apt-get install zip
+
+      - name: Compress directories
+        run: |
+          for dir in */; do
+            base=$(basename "$dir")
+            zip -r "${base}.zip" "$dir"
+            echo "${base}.zip" >> zipfiles.txt
+          done
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        run: |
+          while IFS= read -r zipfile
+          do
+            echo "Uploading $zipfile"
+            curl \
+              -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Content-Type: $(file -b --mime-type $zipfile)" \
+              --data-binary @$zipfile \
+              "${{ steps.create_release.outputs.upload_url }}?name=$(basename $zipfile)"
+          done < zipfiles.txt
