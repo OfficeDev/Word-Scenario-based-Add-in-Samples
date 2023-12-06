@@ -24,20 +24,15 @@ jobs:
             echo "${base}.zip" >> zipfiles.txt
           done
 
-      # - name: Get latest tag
-      #   id: gettag
-      #   run: |
-      #     TAG=$(git describe --tags --abbrev=0 2>/dev/null)
-      #     if [ "$?" -ne 0 ]; then
-      #       echo "No tags found"
-      #       echo ::set-output name=tag::
-      #     else
-      #       echo ::set-output name=tag::$TAG
-      #     fi
-
       - name: Create Release and Upload Assets
+        run: |
+          files=$(cat zipfiles.txt)
+          echo "files: $files"
+          echo "FILES=$files" >> $GITHUB_ENV
+          
+      - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: zipfiles.txt
+          files: ${{ env.FILES }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
