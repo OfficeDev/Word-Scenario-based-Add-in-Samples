@@ -27,15 +27,13 @@ When you click the button, you will open Word online in a new browser tab, and t
 ### Manually run on your local machine
 To run the sample on desktop, please follow the detailed steps provided below.
 1. Install a recent version of [npm](https://www.npmjs.com/get-npm) and [Node.js](https://nodejs.org/) on your computer. To verify if you've already installed these tools, run the commands `node -v` and `npm -v` in your terminal.
-2. Clone the repo to your local workspace or directly download the source code.
-3. Open the project in Visual Studio Code.
-4. [Optional] If you're interested in exploring AIGC, with prerequisites all satisfied, you can fill in the parameters apiKey, endpoint and deployment in `src/taskpane/components/utility/AIData.tsx` to persist the Azure OpenAI account. Or you can skip this step if you just want to try the predefined functionality.
-6. cd src folder and execute following commands:
-    ```console
-    npm install
-    npm start
+2. Run command below to clone the repo and install the project dependency.
+   ```console
+    git clone https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples.git && cd Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC && npm install
     ```
-7. Start debugging the project by hitting the `F5` key in Visual Studio Code.
+3. Open the `Word-Scenario-based-Add-in-Samples\Word-Add-in-AIGC` folder in Visual Studio Code.
+4. Run `npm run start` in current directory to start debug.
+5. **[Optional]** If you're interested in exploring AIGC, with prerequisites all satisfied, you can fill in the parameters apiKey, endpoint and deployment in `src/taskpane/components/utility/AIData.tsx` to persist the Azure OpenAI account. Or you can skip this step if you just want to try the predefined functionality.
 
 ### Sideload the sample add-in on Word Online
 The previous steps show you how to run our sample on desktop. As for the Word Online, please follow the following steps to sideload the manifest.xml file on web.
@@ -45,7 +43,7 @@ The previous steps show you how to run our sample on desktop. As for the Word On
 1.  On the **Home** tab, in the **Add-ins** section, choose **Add-ins** and click **More Add-ins** on the lower-right corner to open Add-in Store Page.
 1.  On the **Office Add-ins** dialog, select the **MY ADD-INS** tab, choose **Manage My Add-ins**, and then **Upload My Add-in**.
     ![image](assets/upload-manifest.png)
-1.  Browse to the add-in manifest file, and then select **Upload**.
+1.  Browse to the add-in `Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC/manifest.xml` file, and then select **Upload**.
 1.  Verify that the add-in loaded successfully. 
 
 ## Additional resources
