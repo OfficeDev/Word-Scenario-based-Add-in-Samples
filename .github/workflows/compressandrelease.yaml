@@ -1,9 +1,9 @@
 name: Compress Projects and Release
 
 on:
-  push:
-    branches:
-      - main  # Trigger this workflow on push to main branch
+  create:
+    tags:
+      - '*'
 
 jobs:
   release:
@@ -23,13 +23,17 @@ jobs:
             echo "${base}.zip" >> zipfiles.txt
           done
 
+      - name: Get latest tag
+        id: latest_tag
+        run: echo ::set-output name=tag::$(git describe --tags --abbrev=0)
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ github.ref }} # This will be refs/heads/main for the main branch
+          tag_name: ${{ steps.latest_tag.outputs.tag }}
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
