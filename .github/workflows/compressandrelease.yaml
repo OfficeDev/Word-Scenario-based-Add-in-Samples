@@ -57,5 +57,5 @@ jobs:
               --data-binary @"$asset_path" \
               -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
               -H "Content-Type: $(file -b --mime-type $asset_path)" \
-              "${{ steps.create_release.outputs.upload_url }}?name=$asset_name"
+              "${{ steps.create_release.outputs.upload_url }}=$asset_name"
           done < zipfiles.txt
