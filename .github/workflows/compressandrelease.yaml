@@ -1,6 +1,7 @@
 name: Compress Projects and Release
 
 on:
+  workflow_dispatch:
   create:
     tags:
       - '*'
