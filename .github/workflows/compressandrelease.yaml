@@ -1,9 +1,9 @@
 name: Compress Projects and Release
 
 on:
-  create:
-    tags:
-      - '*'
+  push:
+    branches:
+      - main  # Trigger this workflow on push to main branch
 
 jobs:
   release:
