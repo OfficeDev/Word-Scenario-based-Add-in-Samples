@@ -38,14 +38,16 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload Release Asset
+      - name: Upload Release Assets
+        id: upload-release-assets
         run: |
-          while IFS= read -r zipfile
+          while IFS= read -r asset_path
           do
-            echo "Uploading $zipfile"
+            asset_name=$(basename $asset_path)
+            echo "Uploading $asset_path as $asset_name"
             curl \
-              -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-              -H "Content-Type: $(file -b --mime-type $zipfile)" \
-              --data-binary @$zipfile \
-              "${{ steps.create_release.outputs.upload_url }}?name=$(basename $zipfile)"
+              --data-binary @"$asset_path" \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Content-Type: $(file -b --mime-type $asset_path)" \
+              "${{ steps.create_release.outputs.upload_url }}?name=$asset_name"
           done < zipfiles.txt
