@@ -24,9 +24,16 @@ jobs:
             echo "${base}.zip" >> zipfiles.txt
           done
 
-      - name: Get latest tag
-        id: latest_tag
-        run: echo ::set-output name=tag::$(git describe --tags --abbrev=0)
+      # - name: Get latest tag
+      #   id: gettag
+      #   run: |
+      #     TAG=$(git describe --tags --abbrev=0 2>/dev/null)
+      #     if [ "$?" -ne 0 ]; then
+      #       echo "No tags found"
+      #       echo ::set-output name=tag::
+      #     else
+      #       echo ::set-output name=tag::$TAG
+      #     fi
 
       - name: Create Release
         id: create_release
@@ -34,7 +41,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ steps.latest_tag.outputs.tag }}
+          tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
