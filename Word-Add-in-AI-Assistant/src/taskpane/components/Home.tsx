@@ -119,7 +119,7 @@ export default class Home extends React.Component {
               />
               <h5 className="name">Content Generation</h5>
               <div className="login">
-                <span>Welcome xurui</span>
+                <span>Welcome:</span>
                 <AIKeyConfigDialog
                   isOpen={this.state.openKeyConfigDialog}
                   apiKey={_apiKey}
