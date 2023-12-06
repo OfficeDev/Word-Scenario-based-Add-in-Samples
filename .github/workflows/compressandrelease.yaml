@@ -1,9 +1,9 @@
 name: Compress Projects and Release
 
 on:
-  push:
-    branches:
-      - main  # Trigger this workflow on push to main branch
+  create:
+    tags:
+      - '*'
 
 jobs:
   release:
@@ -29,7 +29,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ github.ref }}
+          tag_name: ${{ github.ref }} # This will be refs/heads/main for the main branch
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
