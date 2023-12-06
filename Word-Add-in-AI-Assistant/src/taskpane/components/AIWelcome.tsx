@@ -23,7 +23,7 @@ export default class AIWelcome extends React.Component {
                 <div className="bottom_item">
                     <RightOutlined className="item_icon" />
                     <div className="bottom_item_info">
-                        <a href="https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples/tree/main/Word-Add-in-AIGC" target="_blank">Start your project from this sample</a>
+                        <a href="https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples/tree/main/Word-Add-in-AI-Assistant" target="_blank">Start your project from this sample</a>
                     </div>
                 </div>
                 <div className="bottom_item">

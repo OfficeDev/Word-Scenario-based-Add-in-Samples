@@ -1,10 +1,11 @@
+import { message } from "antd";
 import axios, { AxiosRequestConfig } from "axios";
 import qs = require("qs");
 
 /* global process, console */
 axios.defaults.timeout = 20000;
 export const get = (url: string, config: AxiosRequestConfig = {}): Promise<any> =>
-    new Promise((resolve) => {
+    new Promise((resolve, reject) => {
         axios
             .get(url, {
                 params: config.params,
@@ -17,12 +18,14 @@ export const get = (url: string, config: AxiosRequestConfig = {}): Promise<any> 
             .catch((error) => {
                 console.log(error);
                 errorHandler(error);
+                reject(error);
+                throw error;
             });
     });
 
 // post request
 export const post = (url: string, data = {}, config: AxiosRequestConfig = {}): Promise<any> =>
-    new Promise((resolve) => {
+    new Promise((resolve, reject) => {
         axios
             .post(url, data, config)
             .then((res) => {
@@ -30,6 +33,9 @@ export const post = (url: string, data = {}, config: AxiosRequestConfig = {}): P
             })
             .catch((error) => {
                 console.error(error);
+                errorHandler(error)
+                reject(error)
+                throw Error(error)
             });
     });
 
