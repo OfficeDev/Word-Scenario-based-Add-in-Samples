@@ -38,6 +38,7 @@ jobs:
       - name: Upload Release Assets
         run: |
           upload_url="${{ steps.create_release.outputs.upload_url }}"
+          upload_url="${upload_url/\{?name,label\}/}"
           for asset_path in $(cat zipfiles.txt); do
             asset_name=$(basename $asset_path)
             echo "Uploading $asset_path as $asset_name"
