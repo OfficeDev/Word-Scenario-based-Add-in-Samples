@@ -26,7 +26,7 @@ jobs:
 
       - name: Create Release and Upload Assets
         run: |
-          files=$(cat zipfiles.txt)
+          files=$(tr '\n' ' ' < zipfiles.txt)
           echo "files: $files"
           echo "FILES=$files" >> $GITHUB_ENV
           
