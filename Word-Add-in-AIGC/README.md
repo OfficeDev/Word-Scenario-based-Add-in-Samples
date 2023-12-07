@@ -13,7 +13,7 @@ This sample shows a practical Word Add-in with content insertion features, utili
 
 ### Play the sample add-in demo
 Click the button below and play the sample add-in demo:<br><br>
-[<img src="assets/button.png" width="120"/>](https://office.live.com/start/Word.aspx?culture=en-US&omextemplateclient=Word&omexsessionid=0a1dfc7b-e965-4436-a8a0-2cb908ca19ea&omexcampaignid=none&templateid=WA200006289&templatetitle=AI%20Content%20Generation%20Add-in%20for%20Word&omexsrctype=1)
+[<img src="assets/button.png" width="180"/>](https://office.live.com/start/Word.aspx?culture=en-US&omextemplateclient=Word&omexsessionid=0a1dfc7b-e965-4436-a8a0-2cb908ca19ea&omexcampaignid=none&templateid=WA200006289&templatetitle=AI%20Content%20Generation%20Add-in%20for%20Word&omexsrctype=1)
 <br><br>
 When you click the button, you will open Word online in a new browser tab, and the sample add-in will launch automatically.
 #### Note：
