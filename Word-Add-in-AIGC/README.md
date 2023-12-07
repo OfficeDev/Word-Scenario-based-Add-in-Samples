@@ -24,15 +24,20 @@ When you click the button, you will open Word online in a new browser tab, and t
 ![image](assets/Add-in-Screenshot.png)
 
 ## Build, run and debug the sample code 
+### Prerequisites
+1. Install a recent version of [npm](https://www.npmjs.com/get-npm) and [Node.js](https://nodejs.org/) on your computer. To verify if you've already installed these tools, run the commands `node -v` and `npm -v` in your terminal.
+   
 ### Manually run on your local machine
 To run the sample on desktop, please follow the detailed steps provided below.
-1. Install a recent version of [npm](https://www.npmjs.com/get-npm) and [Node.js](https://nodejs.org/) on your computer. To verify if you've already installed these tools, run the commands `node -v` and `npm -v` in your terminal.
-2. Run command below to clone the repo and install the project dependency.
+1. Run command below to clone the repo and install the project dependency.
    ```console
-    git clone https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples.git && cd Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC && npm install
-    ```
+      git clone https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples.git && cd Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC && npm    install
+   ```
 3. Open the `Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC` folder in Visual Studio Code. You can see the sample code and make code changes to the sample.
-4. Run `npm run start` in current directory to start debug on desktop.
+4. Run the following command in your CLI to start the sample add-in on desktop.
+   ```console
+   npm run build && npm start
+   ```
 5. To start debug on Word online, please follow the following steps to sideload the `manifest.xml` file on web.<br>
    > 1.  Keep the webpack server on to host your sample add-in.
    > 1.  Open [Office on the web](https://office.live.com/).
