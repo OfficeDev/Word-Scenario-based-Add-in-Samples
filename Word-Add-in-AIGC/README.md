@@ -33,20 +33,21 @@ To run the sample on desktop, please follow the detailed steps provided below.
     ```
 3. Open the `Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC` folder in Visual Studio Code. You can see the sample code and make code changes to the sample.
 4. Run `npm run start` in current directory to start debug on desktop.
-5. To start debug on Word online, please follow the following steps to sideload the manifest.xml file on web.<br>
+5. To start debug on Word online, please follow the following steps to sideload the `manifest.xml` file on web.<br>
    > 1.  Keep the webpack server on to host your sample add-in.
    > 1.  Open [Office on the web](https://office.live.com/).
    > 1.  Choose **Word**, and then open a new document.
    > 1.  On the **Home** tab, in the **Add-ins** section, choose **Add-ins** and click **More Add-ins** on the lower-right corner to open Add-in Store Page.
         ![image](assets/Sideload_entry.png)
+   >
    > 1.  On the **Office Add-ins** dialog, select the **MY ADD-INS** tab, choose **Manage My Add-ins**, and then **Upload My Add-in**.
     ![image](assets/upload-manifest.png)
+   >
    > 1.  Browse to the add-in `Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC/manifest.xml` file, and then select **Upload**.
         ![image](assets/manifest_location.png)
+   >
    > 1.  Verify that the add-in loaded successfully. 
-6. **[Optional]** If you're interested in exploring AIGC, with prerequisites all satisfied, you can fill in the parameters apiKey, endpoint and deployment in `src/taskpane/components/utility/AIData.tsx` to persist the Azure OpenAI account. Or you can skip this step if you just want to try the predefined functionality.
-
-
+6. **[Optional]** If you're interested in exploring AIGC, with prerequisites all satisfied, you can fill in the parameters apiKey, endpoint and deployment in `src/taskpane/components/utility/AIData.tsx` to persist the Azure OpenAI account.
 
 ## Additional resources
 You may explore additional resources at the following links:
