@@ -37,7 +37,7 @@ To run the sample on desktop, please follow the detailed steps provided below.
 3. Open the `Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC` folder in Visual Studio Code. You can see the sample code and make code changes to the sample.
 4. Run the following command in your CLI to start the sample add-in on desktop.
    ```console
-   npm run build && npm start
+   npm run build && npm run start
    ```
 5. To start debug on Word online, please follow the following steps to sideload the `manifest.xml` file on web.<br>
    > 1.  Keep the webpack server on to host your sample add-in.
