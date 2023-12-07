@@ -13,7 +13,7 @@ This sample shows a practical Word Add-in with content insertion features, utili
 
 ### Play the sample add-in demo
 Click the button below and play the sample add-in demo:<br><br>
-[<img src="assets/button.png" width="120"/>](https://office.live.com/start/Word.aspx?culture=en-US&omextemplateclient=Word&omexsessionid=0a1dfc7b-e965-4436-a8a0-2cb908ca19ea&omexcampaignid=none&templateid=WA200006289&templatetitle=AI%20Content%20Generation%20Add-in%20for%20Word&omexsrctype=1)
+[<img src="assets/button.png" width="180"/>](https://office.live.com/start/Word.aspx?culture=en-US&omextemplateclient=Word&omexsessionid=0a1dfc7b-e965-4436-a8a0-2cb908ca19ea&omexcampaignid=none&templateid=WA200006289&templatetitle=AI%20Content%20Generation%20Add-in%20for%20Word&omexsrctype=1)
 <br><br>
 When you click the button, you will open Word online in a new browser tab, and the sample add-in will launch automatically.
 #### Note：
@@ -24,27 +24,36 @@ When you click the button, you will open Word online in a new browser tab, and t
 ![image](assets/Add-in-Screenshot.png)
 
 ## Build, run and debug the sample code 
+### Prerequisites
+- Install a recent version of [npm](https://www.npmjs.com/get-npm) and [Node.js](https://nodejs.org/) on your computer. To verify if you've already installed these tools, run the commands `node -v` and `npm -v` in your terminal.
+- You need to have a Microsoft 365 account to launch the sample. You can [sign up for the Microsoft 365 Developer Program](https://developer.microsoft.com/microsoft-365/dev-program) to get a free Microsoft 365 subscription.
+   
 ### Manually run on your local machine
 To run the sample on desktop, please follow the detailed steps provided below.
-1. Install a recent version of [npm](https://www.npmjs.com/get-npm) and [Node.js](https://nodejs.org/) on your computer. To verify if you've already installed these tools, run the commands `node -v` and `npm -v` in your terminal.
-2. Run command below to clone the repo and install the project dependency.
+1. Run command below to clone the repo and install the project dependency.
    ```console
-    git clone https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples.git && cd Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC && npm install
-    ```
-3. Open the `Word-Scenario-based-Add-in-Samples\Word-Add-in-AIGC` folder in Visual Studio Code.
-4. Run `npm run start` in current directory to start debug.
-5. **[Optional]** If you're interested in exploring AIGC, with prerequisites all satisfied, you can fill in the parameters apiKey, endpoint and deployment in `src/taskpane/components/utility/AIData.tsx` to persist the Azure OpenAI account. Or you can skip this step if you just want to try the predefined functionality.
-
-### Sideload the sample add-in on Word Online
-The previous steps show you how to run our sample on desktop. As for the Word Online, please follow the following steps to sideload the manifest.xml file on web.
-1.  Keep the webpack server on to host your sample add-in.
-1.  Open [Office on the web](https://office.live.com/).
-1.  Choose **Word**, and then open a new document.
-1.  On the **Home** tab, in the **Add-ins** section, choose **Add-ins** and click **More Add-ins** on the lower-right corner to open Add-in Store Page.
-1.  On the **Office Add-ins** dialog, select the **MY ADD-INS** tab, choose **Manage My Add-ins**, and then **Upload My Add-in**.
+      git clone https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples.git && cd Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC && npm    install
+   ```
+3. Open the `Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC` folder in Visual Studio Code. You can see the sample code and make code changes to the sample.
+4. Run the following command in your CLI to start the sample add-in on desktop.
+   ```console
+   npm run build && npm run start
+   ```
+5. To start debug on Word online, please follow the following steps to sideload the `manifest.xml` file on web.<br>
+   > 1.  Keep the webpack server on to host your sample add-in.
+   > 1.  Open [Office on the web](https://office.live.com/).
+   > 1.  Choose **Word**, and then open a new document.
+   > 1.  On the **Home** tab, in the **Add-ins** section, choose **Add-ins** and click **More Add-ins** on the lower-right corner to open Add-in Store Page.
+        ![image](assets/Sideload_entry.png)
+   >
+   > 1.  On the **Office Add-ins** dialog, select the **MY ADD-INS** tab, choose **Manage My Add-ins**, and then **Upload My Add-in**.
     ![image](assets/upload-manifest.png)
-1.  Browse to the add-in `Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC/manifest.xml` file, and then select **Upload**.
-1.  Verify that the add-in loaded successfully. 
+   >
+   > 1.  Browse to the add-in `Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC/manifest.xml` file, and then select **Upload**.
+        ![image](assets/manifest_location.png)
+   >
+   > 1.  Verify that the add-in loaded successfully. 
+6. **[Optional]** If you're interested in exploring AIGC, with prerequisites all satisfied, you can fill in the parameters apiKey, endpoint and deployment in `src/taskpane/components/utility/AIData.tsx` to persist the Azure OpenAI account.
 
 ## Additional resources
 You may explore additional resources at the following links:
