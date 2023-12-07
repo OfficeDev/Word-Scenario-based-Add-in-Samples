@@ -119,7 +119,7 @@ export default class Home extends React.Component {
               />
               <h5 className="name">Content Generation</h5>
               <div className="login">
-                <span>Welcome:</span>
+                <span>User: contoso</span>
                 <AIKeyConfigDialog
                   isOpen={this.state.openKeyConfigDialog}
                   setOpen={this.open.bind(this)}
