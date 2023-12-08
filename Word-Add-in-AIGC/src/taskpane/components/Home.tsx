@@ -1,5 +1,5 @@
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-import { Button, Dropdown, MenuProps, message } from "antd";
+import { LeftOutlined, RightOutlined, DownOutlined } from "@ant-design/icons";
+import { Button, Dropdown, MenuProps, Space, message } from "antd";
 import React from "react";
 import AIKeyConfigDialog from "./AIKeyConfigDialog";
 import { apiKey, deployment, dropdownMenus, endpoint, generateText } from "./utility/AIData";
@@ -231,21 +231,21 @@ export default class Home extends React.Component {
             case "commentPredefined":
                 await this.insertComment(predefinedComment);
                 break;
-            case "formatPredefined":
-                await this.formatDocument();
-                break;
-            case "picturePredefined":
-                await this.insertPicture(predefinedPictureBase64);
-                break;
         }
     }
 
     generateMenuItems = (type: string): MenuProps["items"] => {
         return dropdownMenus[type].map((item) => {
-            return {
-                key: item.key,
-                label: <div style={{ textAlign: "center" }}><span>{item.desc}</span></div>,
-                onClick: this.onMenuClick
+            if (item.type === "divider") {
+                return { type: "divider" };
+            }
+            else {
+                return {
+                    key: item.key,
+                    label: <div style={{ textAlign: "center" }}><span>{item.desc}</span></div>,
+                    onClick: this.onMenuClick,
+                    selectable: true,
+                };
             }
         })
     }
@@ -257,10 +257,6 @@ export default class Home extends React.Component {
         const addCitationItems: MenuProps['items'] = this.generateMenuItems("citation");
 
         const addCommentItems: MenuProps['items'] = this.generateMenuItems("comment");
-
-        const formatDocumentItems: MenuProps['items'] = this.generateMenuItems("format");
-
-        const addPictureItems: MenuProps['items'] = this.generateMenuItems("picture");
 
         return (
           <>
@@ -275,26 +271,36 @@ export default class Home extends React.Component {
                                     </div>
                                 </div>
                                 <div className="main_func">
-                                    <Dropdown menu={{ items: addTitleItems }} placement="bottom" className="generate_button" arrow>
-                                        <Button loading={this.state.titleLoading}>Add a title</Button>
+                                    <Dropdown menu={{ items: addTitleItems }} className="dropdown_list">
+                                        <Button loading={this.state.titleLoading}>
+                                            <Space>
+                                                Add a title
+                                                <DownOutlined />
+                                            </Space>
+                                        </Button>
                                     </Dropdown>
-                                    <Dropdown menu={{ items: addCommentItems }} placement="bottom" className="generate_button" arrow>
-                                        <Button loading={this.state.commentLoading}>Add comments</Button>
+                                    <Dropdown menu={{ items: addCommentItems }} className="dropdown_list">
+                                        <Button loading={this.state.commentLoading}>
+                                            <Space>
+                                                Add a comment
+                                                <DownOutlined />
+                                            </Space>
+                                        </Button>
                                     </Dropdown>
-                                    <Dropdown menu={{ items: addCitationItems }} placement="bottom" className="generate_button" arrow>
-                                        <Button loading={this.state.citationLoading}>Add citation in footnotes</Button>
+                                    <Dropdown menu={{ items: addCitationItems }} className="dropdown_list">
+                                        <Button loading={this.state.citationLoading}>
+                                            <Space>
+                                                Add a citation in footnotes
+                                                <DownOutlined />
+                                            </Space>
+                                        </Button>
                                     </Dropdown>
-                                    <Dropdown
-                                        menu={{ items: formatDocumentItems }}
-                                        placement="bottom"
-                                        className="generate_button"
-                                        arrow
-                                    >
-                                        <Button loading={this.state.formatLoading}>Format the document</Button>
-                                    </Dropdown>
-                                    <Dropdown menu={{ items: addPictureItems }} placement="bottom" className="generate_button" arrow>
-                                        <Button loading={this.state.pictureLoading}>Add a picture</Button>
-                                    </Dropdown>
+                                    <Button loading={this.state.pictureLoading} className="insert_button" onClick={()=>this.insertPicture(predefinedPictureBase64)}>
+                                        Add a predefined picture
+                                    </Button>
+                                    <Button loading={this.state.formatLoading} className="insert_button" onClick={this.formatDocument}>
+                                        Format the document
+                                    </Button>
                                 </div>
                                 <AIKeyConfigDialog
                                     isOpen={this.state.openKeyConfigDialog}
@@ -332,17 +338,17 @@ export default class Home extends React.Component {
                                     onClick={this.insertTemplateDocument}
                                     loading={this.state.importTemplateLoading}
                                 >
-                                    Generate Sample Document
+                                    Generate sample content
                                 </Button>
                                 <div className="generate_button_or">or</div>
-                                <Button className="generate_button" onClick={this.openMainFunc}>
-                                    Skip With Current Document
-                                </Button>
+                                    <Button className="generate_button" onClick={this.openMainFunc}>
+                                        Skip generating sample content
+                                    </Button>
                             </>
                         )}
                     </div>
                     <div className="bottom">
-                        <div className="item_desc">For next steps:</div>
+                        <div className="item_desc">Explore more resources:</div>
                         <div className="bottom_item">
                             <RightOutlined className="item_icon" />
                             <div className="bottom_item_info">
