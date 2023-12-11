@@ -12,6 +12,7 @@ export enum AssistanceOption {
     Welcome = "Welcome",
     GenerateText = "Generate Text",
     GeneratePicture = "Generate Picture",
+    ChatMode = "Chat Mode",
 }
 
 export interface GenerateOption {

@@ -45,12 +45,14 @@ export default class Home extends React.Component {
         if (e.key !== this.state.selectedOption) {
             var content: ReactElement = <></>
             switch (e.key) {
+                case AssistanceOption.ChatMode:
+                    this.switchToChat();
+                    return;
                 case AssistanceOption.Welcome:
                     content = <AIWelcome />
                     break;
                 default:
                     content = this.generateRequestArea(e.key);
-
             }
             if (content["type"]["name"] === undefined) {
                 //popup message to indicate the prompt type is not configured yet
