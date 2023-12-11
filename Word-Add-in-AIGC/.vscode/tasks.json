@@ -51,7 +51,7 @@
     {
       "label": "Debug: PowerPoint Desktop",
       "type": "npm",
-      "script": "start:desktop:excel",
+      "script": "start:desktop:powerpoint",
       "presentation": {
         "clear": true,
         "panel": "dedicated",
