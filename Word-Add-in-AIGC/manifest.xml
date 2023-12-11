@@ -77,9 +77,9 @@
         <bt:Url id="Taskpane.Url" DefaultValue="https://officedev.github.io/Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="GetStarted.Title" DefaultValue="Get started with your sample add-in!"/>
-        <bt:String id="CommandsGroup.Label" DefaultValue="Commands Group"/>
-        <bt:String id="TaskpaneButton.Label" DefaultValue="Show Taskpane"/>
+        <bt:String id="GetStarted.Title" DefaultValue="Get started with the Word AI Content Generation add-in!"/>
+        <bt:String id="CommandsGroup.Label" DefaultValue="AI Content Generation"/>
+        <bt:String id="TaskpaneButton.Label" DefaultValue="Insert Content"/>
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="GetStarted.Description" DefaultValue="Your sample add-in loaded succesfully. Go to the HOME tab and click the 'Show Taskpane' button to get started."/>
