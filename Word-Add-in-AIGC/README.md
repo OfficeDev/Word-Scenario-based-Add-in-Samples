@@ -27,7 +27,7 @@ Insert predefined image into the document:
 To run the sample on desktop, please follow the detailed steps provided below.
 1. Run command below to clone the repo and install the project dependency.
    ```console
-   git clone https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples.git && cd Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC && npm    install
+   git clone https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples.git && cd Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC && npm install
    ```
 3. Open the `Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC` folder in Visual Studio Code. You can see the sample code and make code changes to the sample.
 4. Run the following command in your CLI to start the sample add-in on desktop.

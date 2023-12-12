@@ -3,6 +3,7 @@ import React from "react";
 import TextArea from "antd/es/input/TextArea";
 import { Page } from "./Home";
 import { generate, GenerateOption, GenerateType } from "./utility/config";
+import { _apiKey, _deployment, _endPoint } from "./AIKeyConfigDialog";
 
 export interface AIGenerateState {
     sourceWords: string;
@@ -12,6 +13,7 @@ export interface AIGenerateState {
 
 export interface AIGenerateProps {
     setCurrentPage: (page: Page, generatedContent: string) => void;
+    openConfigDialog: (isOpen: boolean) => void;
     generateOption: GenerateOption;
 }
 
@@ -51,6 +53,8 @@ export default class AIGenerateText extends React.Component<AIGenerateProps, AIG
     generate = async () => {
         if (this.state.sourceWords.length == 0) {
             message.warning("please select source content.");
+        } else if (_apiKey === "" || _endPoint === "" || _deployment === "") {
+            this.props.openConfigDialog(true);
         } else {
             this.setState({ loading: true });
             await generate(this.state.sourceWords, this.props.generateOption)
@@ -61,6 +65,9 @@ export default class AIGenerateText extends React.Component<AIGenerateProps, AIG
                     }
                     this.setState({ loading: false });
                     this.props.setCurrentPage(Page.GeneratedPage, genContent);
+                }).catch((err) => {
+                    message.error(err.message);
+                    this.setState({ loading: false });
                 })
         }
     };

@@ -19,23 +19,10 @@ export default class AIWelcome extends React.Component {
                 </div>
             </div>
             <div className="bottom">
-                <div className="item_desc">For next steps:</div>
                 <div className="bottom_item">
                     <RightOutlined className="item_icon" />
                     <div className="bottom_item_info">
-                        <a href="https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples/tree/main/Word-Add-in-AIGC" target="_blank">Start your project from this sample</a>
-                    </div>
-                </div>
-                <div className="bottom_item">
-                    <RightOutlined className="item_icon" />
-                    <div className="bottom_item_info">
-                        <a href="https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples" target="_blank">See more samples</a>
-                    </div>
-                </div>
-                <div className="bottom_item">
-                    <RightOutlined className="item_icon" />
-                    <div className="bottom_item_info">
-                        <a href="https://learn.microsoft.com/en-us/office/dev/add-ins/quickstarts/word-quickstart?tabs=yeomangenerator" target="_blank">Office add-in documentation</a>
+                        <a href="https://learn.microsoft.com/en-us/office/dev/add-ins/quickstarts/word-quickstart?tabs=yeomangenerator" target="_blank">Explore more resources</a>
                     </div>
                 </div>
             </div>

@@ -62,13 +62,15 @@ export default class AITextDisplay extends React.Component<InsertContentProps, I
                     let insComment = range.insertComment(this.state.generatedContent);
                     break;
                   case InsertOption.Footnote:
-                    range.insertFootnote(this.state.generatedContent);
+                    let ftn = range.insertFootnote(this.state.generatedContent);
+                    ftn.body.getRange().select();
                     break;
                   case InsertOption.Header:
                     const insHeader = ctx.document.sections
                       .getFirst()
                       .getHeader(Word.HeaderFooterType.primary)
                       .insertText(this.state.generatedContent, "End");
+                      insHeader.select();
                     break;
                   default:
                     throw Error("Not implemented");

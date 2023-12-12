@@ -1,11 +1,7 @@
 import { AxiosRequestConfig } from "axios";
 import { get, post } from "./request";
 import { message } from "antd";
-import { _apiKey } from "../Home";
-import { chatKey } from "../Chat";
-
-//change the apiKey of Azure AI service to yours
-export const apiKey = ""
+import { _apiKey, _deployment, _endPoint } from "../AIKeyConfigDialog";
 
 export enum GenerateType {
     Text = "Text",
@@ -13,9 +9,10 @@ export enum GenerateType {
 }
 
 export enum AssistanceOption {
-    SelectAnOption = "Select an option",
+    Welcome = "Welcome",
     GenerateText = "Generate Text",
     GeneratePicture = "Generate Picture",
+    ChatMode = "Chat Mode",
 }
 
 export interface GenerateOption {
@@ -42,9 +39,7 @@ export const GenerateOptionList: GenerateOption[] = [
 ];
 
 export const AzureAI = {
-    baseUrl: "https://augloop-cs-test-scus-shared-open-ai-0.openai.azure.com/openai/deployments/text-davinci-003/completions",
-    apiversion: "2023-05-15",
-    apikey: apiKey,
+    apiversion: "2023-05-15"
 };
 
 export interface AzureTextGenAPI {
@@ -84,14 +79,17 @@ export const generateText = (content: string, maxTokens: number = 1000) => {
     let requestBody: AzureTextGenAPI = { prompt: content, max_tokens: maxTokens };
     let config: AxiosRequestConfig = {
         headers: {
-            "api-key": AzureAI.apikey === "" ? (_apiKey === "" ? chatKey : _apiKey) : AzureAI.apikey,
+            "api-key": _apiKey,
             "Content-Type": "application/json",
         },
         params: {
             "api-version": AzureAI.apiversion,
         },
     };
-    return post(AzureAI.baseUrl, requestBody, config).then((res) => {
+
+    let url = _endPoint + "/openai/deployments/" + _deployment + "/completions";
+
+    return post(url, requestBody, config).then((res) => {
         if (res.status == 200 && res.data != null) {
             let resObj: AzureTextGenRes = res.data;
             if (resObj.choices == null || resObj.choices.length == 0) {
@@ -101,15 +99,15 @@ export const generateText = (content: string, maxTokens: number = 1000) => {
         } else {
             throw Error(res.data.error);
         }
+    }).catch((err) => {
+        throw Error(err);
     });
 };
 
 ////////////////////////////////////////////Generate Picture//////////////////////////////////////////////
 
 export const DallE = {
-    baseUrl: "https://augloop-cs-test-scus-shared-open-ai-0.openai.azure.com/openai/images/generations:submit",
-    apiKey: apiKey,
-    apiVersion: "2023-06-01-preview",
+    apiVersion: "2023-06-01-preview"
 };
 
 export const generatePicture = (prompt: string) => {
@@ -120,14 +118,16 @@ export const generatePicture = (prompt: string) => {
     };
     let config: AxiosRequestConfig = {
         headers: {
-            "api-key": DallE.apiKey === "" ? _apiKey : DallE.apiKey,
+            "api-key": _apiKey,
             responseType: "blob",
         },
         params: {
             "api-version": DallE.apiVersion,
         },
     };
-    return post(DallE.baseUrl, requestBody, config).then(async (res) => {
+    let imageUrl = _endPoint + "/openai/images/generations:submit";
+
+    return post(imageUrl, requestBody, config).then(async (res) => {
         if (res.status == 202 && res.headers["operation-location"] != null) {
             const operationLocation = res.headers["operation-location"];
             var status = "notRunning";
@@ -137,7 +137,7 @@ export const generatePicture = (prompt: string) => {
             while (status != "succeeded" && count < maxRetry) {
                 await get(operationLocation, {
                     headers: {
-                        "api-key": DallE.apiKey === "" ? _apiKey : DallE.apiKey,
+                        "api-key": _apiKey,
                     },
                 }).then((r) => {
                     if (r.status == 200 && r.data.status == "succeeded") {
@@ -156,5 +156,7 @@ export const generatePicture = (prompt: string) => {
         } else {
             throw Error(res);
         }
+    }).catch((err) => {
+        throw Error(err);
     });
 };

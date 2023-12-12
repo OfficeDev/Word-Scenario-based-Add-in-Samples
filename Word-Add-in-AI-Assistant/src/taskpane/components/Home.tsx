@@ -3,15 +3,12 @@ import { DownOutlined, InteractionOutlined, RightOutlined, SettingOutlined } fro
 import type { MenuProps } from 'antd';
 import { Button, Dropdown, message, Space, Tooltip } from 'antd';
 import AIWelcome from "./AIWelcome";
-import { apiKey, AssistanceOption, GenerateOptionList } from "./utility/config";
+import { AssistanceOption, GenerateOptionList } from "./utility/config";
 import AIGenerate from "./AIGenerate";
 import AIKeyConfigDialog from "./AIKeyConfigDialog";
 import AITextDisplay from "./AITextDisplay";
 import AIPictureDisplay from "./AIPictureDisplay";
-import Chat, { chatKey } from "./Chat";
-
-// global variable to store the api key, configrued by developer
-export let _apiKey = "";
+import Chat from "./Chat";
 
 export enum Page {
     Home = "Home",
@@ -25,7 +22,7 @@ export default class Home extends React.Component {
     }
 
     state = {
-        selectedOption: AssistanceOption.SelectAnOption,
+        selectedOption: AssistanceOption.Welcome,
         content: <AIWelcome />,
         curPage: Page.Home,
         generatedContent: "",
@@ -44,25 +41,18 @@ export default class Home extends React.Component {
         this.setState({ openKeyConfigDialog: isOpen });
     };
 
-    setKey = (key: string) => {
-        _apiKey = key;
-        this.setState({ openKeyConfigDialog: false });
-    }
-
     generateAssistanceContent: MenuProps['onClick'] = (e) => {
-        if (_apiKey === "" && apiKey === "" && chatKey === "") {
-            this.setState({ openKeyConfigDialog: true });
-            return;
-        }
         if (e.key !== this.state.selectedOption) {
             var content: ReactElement = <></>
             switch (e.key) {
-                case AssistanceOption.SelectAnOption:
+                case AssistanceOption.ChatMode:
+                    this.switchToChat();
+                    return;
+                case AssistanceOption.Welcome:
                     content = <AIWelcome />
                     break;
                 default:
                     content = this.generateRequestArea(e.key);
-
             }
             if (content["type"]["name"] === undefined) {
                 //popup message to indicate the prompt type is not configured yet
@@ -81,7 +71,7 @@ export default class Home extends React.Component {
         var areaGenerated: ReactElement = <></>;
         GenerateOptionList.forEach((item) => {
             if (item.dropDownOption === key) {
-                areaGenerated = <AIGenerate setCurrentPage={this.setCurrentPage.bind(this)} generateOption={item} />
+                areaGenerated = <AIGenerate setCurrentPage={this.setCurrentPage.bind(this)} generateOption={item} openConfigDialog={this.open.bind(this)}/>
             }
         })
         return areaGenerated;
@@ -101,7 +91,16 @@ export default class Home extends React.Component {
         };
 
         if(this.state.curPage === Page.Chat) {
-            return <Chat back= {this.setCurrentPage.bind(this)}/>
+            return (
+              <>
+                <Chat back={this.setCurrentPage.bind(this)} setOpen={this.open.bind(this)}>
+                  <AIKeyConfigDialog
+                    isOpen={this.state.openKeyConfigDialog}
+                    setOpen={this.open.bind(this)}
+                  />
+                </Chat>
+              </>
+            );
         }
 
         return (
@@ -109,7 +108,10 @@ export default class Home extends React.Component {
             <div className="wrapper">
               <div className="survey">
                 <RightOutlined />
-                <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR8GFRbAYEV9Hmqgjcbr7lOdUNVAxQklNRkxCWEtMMFRFN0xXUFhYVlc5Ni4u" target="_blank">
+                <a
+                  href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR8GFRbAYEV9Hmqgjcbr7lOdUNVAxQklNRkxCWEtMMFRFN0xXUFhYVlc5Ni4u"
+                  target="_blank"
+                >
                   How do you like this sample? Tell us more!
                 </a>
               </div>
@@ -119,12 +121,10 @@ export default class Home extends React.Component {
               />
               <h5 className="name">Content Generation</h5>
               <div className="login">
-                <span>Welcome:</span>
+                <span>User: contoso</span>
                 <AIKeyConfigDialog
                   isOpen={this.state.openKeyConfigDialog}
-                  apiKey={_apiKey}
                   setOpen={this.open.bind(this)}
-                  setKey={this.setKey.bind(this)}
                 />
                 <div>
                   <Tooltip placement="topLeft" title="chat mode">

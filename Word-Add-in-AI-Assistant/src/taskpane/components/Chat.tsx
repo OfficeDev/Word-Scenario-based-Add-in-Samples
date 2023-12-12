@@ -1,15 +1,14 @@
 import { LeftOutlined, SendOutlined } from "@ant-design/icons";
-import { Input, Segmented } from "antd";
-import React from "react";
-import { Page, _apiKey } from "./Home";
-import { apiKey, generateText } from "./utility/config";
-import AIKeyConfigDialog from "./AIKeyConfigDialog";
-
-// global variable to store the api key, configrued by developer
-export let chatKey = "";
+import { Input, Segmented, message } from "antd";
+import React, { Children } from "react";
+import { Page } from "./Home";
+import { generateText } from "./utility/config";
+import { _apiKey, _deployment, _endPoint } from "./AIKeyConfigDialog";
 
 export interface IChatProps {
+  children?: React.ReactNode;
   back: (page: Page, generatedContent: string) => void;
+  setOpen: (isOpen: boolean) => void;
 }
 
 export default class Chat extends React.Component<IChatProps> {
@@ -21,7 +20,6 @@ export default class Chat extends React.Component<IChatProps> {
     greeting: "please input whatever you want to say to the AI.",
     content: <></>,
     input: "",
-    openKeyConfigDialog: false,
     selectedMessage: "",
   };
 
@@ -61,15 +59,6 @@ export default class Chat extends React.Component<IChatProps> {
     if (bottom) {
       bottom.scrollIntoView();
     }
-  };
-
-  setOpen = (open: boolean) => {
-    this.setState({ openKeyConfigDialog: open });
-  };
-
-  setKey = (key: string) => {
-    chatKey = key;
-    this.setState({ openKeyConfigDialog: false });
   };
 
   onChange = async (option) => {
@@ -122,15 +111,15 @@ export default class Chat extends React.Component<IChatProps> {
       </div>
     );
 
-    if (apiKey === "" && chatKey === "" && _apiKey === "") {
+    if (_apiKey === "" || _endPoint === "" || _deployment === "") {
       const alertMessage = (
         <>
           <div className="message clear">
             <div className="clear">
               <span className="left">
                 Please config the{" "}
-                <span onClick={() => this.setOpen(true)} className="configKey">
-                  Azure Open AI Key.{" "}
+                <span onClick={() => this.props.setOpen(true)} className="configKey">
+                  Azure OpenAI Account.{" "}
                 </span>
               </span>
             </div>
@@ -161,6 +150,9 @@ export default class Chat extends React.Component<IChatProps> {
 
     const ret = await generateText(input, 50).then((res) => {
       return res.replace("\n\r\n", "").replace("\n", "").replace("\n", "");
+    }).catch((err) => {
+      message.error(err.message);
+      throw Error(err);
     });
     const responseMessage = (
       <div className="message clear" onClick={this.getSelectedContent}>
@@ -199,7 +191,7 @@ export default class Chat extends React.Component<IChatProps> {
 
   inputChange = (e) => {
     this.setState({ input: e.target.value });
-  };
+  }
 
   render() {
     return (
@@ -213,12 +205,6 @@ export default class Chat extends React.Component<IChatProps> {
               </div>
             </div>
           </div>
-          <AIKeyConfigDialog
-            isOpen={this.state.openKeyConfigDialog}
-            apiKey={chatKey}
-            setOpen={this.setOpen.bind(this)}
-            setKey={this.setKey.bind(this)}
-          />
           <div className="content">
             <div id="chats">{this.state.content}</div>
             <div id="bottom"></div>
@@ -232,6 +218,9 @@ export default class Chat extends React.Component<IChatProps> {
               value={this.state.input}
             />
             <SendOutlined className="sendIcon" onClick={this.addChat}></SendOutlined>
+          </div>
+          <div>
+            {Children.only(this.props.children)}
           </div>
         </div>
       </>
