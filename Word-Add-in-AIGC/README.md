@@ -42,7 +42,7 @@ To run the sample on desktop, please follow the detailed steps provided below.
         ![image](assets/Sideload_entry.png)
    >
    > 1.  On the **Office Add-ins** dialog, select the **MY ADD-INS** tab, choose **Manage My Add-ins**, and then **Upload My Add-in**.
-    ![image](assets/upload-manifest.png)
+        ![image](assets/upload-manifest.png)
    >
    > 1.  Browse to the add-in `Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC/manifest.xml` file, and then select **Upload**.
         ![image](assets/manifest_location.png)
