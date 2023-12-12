@@ -11,7 +11,7 @@ const rootElement: HTMLElement = document.getElementById("container");
 const root = createRoot(rootElement);
 
 /* Render application after Office initializes */
-Office.onReady(() => {
+Office.onReady().then(() => {
   root.render(
     <FluentProvider theme={webLightTheme}>
       <Home />
