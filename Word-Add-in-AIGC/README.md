@@ -31,7 +31,7 @@ When you click the button, you will open Word online in a new browser tab, and t
 ### Run on your local machine
 To run the sample on desktop, please follow the steps provided below.
 
-- Run command below for Windows
+- Run command below in PowerShell for Windows
    ```
    iwr aka.ms/wordaddin/aigc -o wordaigc.bat; saps wordaigc.bat
    ```
