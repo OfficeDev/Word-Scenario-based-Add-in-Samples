@@ -37,7 +37,7 @@ To run the sample on desktop, please follow the steps provided below.
    ```
 - For MacOS:
    ```
-   bash <(curl –s –L aka.ms/wordaddin/aigc_mac) 
+   bash <(curl -L -s aka.ms/wordaddin/aigc_mac) 
    ```
 This script works in Windows or MacOS, and it will automatically execute all the required steps for running the sample and opening the code for viewing and editing. The steps include:
 - Install Node.js, npm, git if they are not found on your machine.
