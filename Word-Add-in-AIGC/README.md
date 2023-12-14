@@ -25,30 +25,21 @@ When you click the button, you will open Word online in a new browser tab, and t
 
 ## Build, run and debug the sample code 
 ### Prerequisites
+- Install a recent version of [npm](https://www.npmjs.com/get-npm) and [Node.js](https://nodejs.org/) on your computer. To verify if you've already installed these tools, run the commands `node -v` and `npm -v` in your terminal.
 - You need to have a Microsoft 365 account to launch the sample. You can [sign up for the Microsoft 365 Developer Program](https://developer.microsoft.com/microsoft-365/dev-program) to get a free Microsoft 365 subscription.
-- For MacOS only, you need to install a recent version of [npm](https://www.npmjs.com/get-npm) and [Node.js](https://nodejs.org/) on your computer. To verify if you've already installed these tools, run the commands `node -v` and `npm -v` in your terminal.
    
-### Run on your local machine
-To run the sample on desktop, please follow the steps provided below.
-
-- Run command below in PowerShell for Windows
+### Manually run on your local machine
+To run the sample on desktop, please follow the detailed steps provided below.
+1. Run command below to clone the repo and install the project dependency.
+   ```console
+   git clone https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples.git && cd Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC && npm install
    ```
-   iwr aka.ms/wordaddin/aigc -o wordaigc.bat; saps wordaigc.bat
+3. Open the `Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC` folder in Visual Studio Code. You can see the sample code and make code changes to the sample.
+4. Run the following command in your CLI to start the sample add-in on desktop.
+   ```console
+   npm run start
    ```
-- For MacOS:
-   ```
-   bash <(curl -L -s aka.ms/wordaddin/aigc_mac) 
-   ```
-This script works in Windows or MacOS, and it will automatically execute all the required steps for running the sample and opening the code for viewing and editing. The steps include:
-- Install Node.js, npm, git if they are not found on your machine.
-- Download sample project.
-- Launch Visual Studio Code (or launch sample project directory if you don’t have VS Code installed).
-- Run the sample automatically if you choose so.
-  
-Stay tuned for expanded platform support on this command.
-
-### Debug on Word online
-To start debug on Word online, please follow the following steps to sideload the `manifest.xml` file on web.<br>
+5. To start debug on Word online, please follow the following steps to sideload the `manifest.xml` file on web.<br>
    > 1.  Keep the webpack server on to host your sample add-in.
    > 1.  Open [Office on the web](https://office.live.com/).
    > 1.  Choose **Word**, and then open a new document.
@@ -56,14 +47,13 @@ To start debug on Word online, please follow the following steps to sideload the
         ![image](assets/Sideload_entry.png)
    >
    > 1.  On the **Office Add-ins** dialog, select the **MY ADD-INS** tab, choose **Manage My Add-ins**, and then **Upload My Add-in**.
-    ![image](assets/upload-manifest.png)
+        ![image](assets/upload-manifest.png)
    >
    > 1.  Browse to the add-in `Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC/manifest.xml` file, and then select **Upload**.
         ![image](assets/manifest_location.png)
    >
    > 1.  Verify that the add-in loaded successfully. 
 6. **[Optional]** If you're interested in exploring AIGC, with prerequisites all satisfied, you can fill in the parameters apiKey, endpoint and deployment in `src/taskpane/components/utility/AIData.tsx` to persist the Azure OpenAI account.
-
 ## Additional resources
 You may explore additional resources at the following links:
 - More samples: [Office Add-ins code samples](https://github.com/OfficeDev/Office-Add-in-samples)
