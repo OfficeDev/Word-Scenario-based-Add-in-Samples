@@ -33,7 +33,7 @@ To run the sample on desktop, please follow the steps provided below.
 
 - Run command below in PowerShell for Windows
    ```
-   iwr aka.ms/wordaddin/aigc -o wordaigc.bat; saps wordaigc.bat
+   iwr aka.ms/wordaddin/aigc -outfile wordaigc.bat; saps wordaigc.bat
    ```
 - For MacOS:
    ```
