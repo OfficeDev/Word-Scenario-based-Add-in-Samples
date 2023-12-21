@@ -61,14 +61,13 @@ To start debug on Word online, please follow the following steps to sideload the
         ![image](assets/Sideload_entry.png)
    >
    > 1.  On the **Office Add-ins** dialog, select the **MY ADD-INS** tab, choose **Manage My Add-ins**, and then **Upload My Add-in**.
-    ![image](assets/upload-manifest.png)
+        ![image](assets/upload-manifest.png)
    >
    > 1.  Browse to the add-in `Word-Scenario-based-Add-in-Samples/Word-Add-in-AIGC/manifest.xml` file, and then select **Upload**.
         ![image](assets/manifest_location.png)
    >
    > 1.  Verify that the add-in loaded successfully. 
 6. **[Optional]** If you're interested in exploring AIGC, with prerequisites all satisfied, you can fill in the parameters apiKey, endpoint and deployment in `src/taskpane/components/utility/AIData.tsx` to persist the Azure OpenAI account.
-
 ## Additional resources
 You may explore additional resources at the following links:
 - More samples: [Office Add-ins code samples](https://github.com/OfficeDev/Office-Add-in-samples)
@@ -76,6 +75,8 @@ You may explore additional resources at the following links:
 
 ## Feedback
 Did you experience any problems with the sample? [Create an issue]( https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples/issues/new) and we'll help you out.
+
+Let us know your experience using our sample code for Office add-in development: [Sample survey](https://aka.ms/OfficeDevSampleSurvey).
 
 ## Copyright
 Copyright (c) 2021 Microsoft Corporation. All rights reserved.
