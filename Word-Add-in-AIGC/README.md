@@ -26,7 +26,7 @@ When you click the button, you will open Word online in a new browser tab, and t
 ## Build, run and debug the sample code 
 ### Prerequisites
 - You need to have a Microsoft 365 account to launch the sample. You can [sign up for the Microsoft 365 Developer Program](https://developer.microsoft.com/microsoft-365/dev-program) to get a free Microsoft 365 subscription.
-- For MacOS only, you need to install [Node.js](https://nodejs.org/) (**Note:** This tutorial was written with Node version 16.14.0. The steps in this guide may work with other versions, but that has not been tested) and [git](https://git-scm.com/download/mac) on your computer. To verify if you've already installed these tools, run the commands `node -v` and `git --version` in your terminal.
+- For MacOS only, you need to install [Node.js](https://nodejs.org/) and [git](https://git-scm.com/download/mac) on your computer. To verify if you've already installed these tools, run the commands `node -v` and `git --version` in your terminal.
    
 ### Run on your local machine
 To run the sample on desktop, please follow the steps provided below.
