@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from "axios";
 import { get, post } from "./request";
 import { message } from "antd";
-import { _apiKey, _deployment, _endPoint } from "../AIKeyConfigDialog";
+import { _apiKey, _deployment, _endPoint, _token } from "../AIKeyConfigDialog";
 
 export enum GenerateType {
     Text = "Text",
@@ -81,6 +81,7 @@ export const generateText = (content: string, maxTokens: number = 1000) => {
         headers: {
             "api-key": _apiKey,
             "Content-Type": "application/json",
+            Authorization: _token,
         },
         params: {
             "api-version": AzureAI.apiversion,
@@ -120,6 +121,7 @@ export const generatePicture = (prompt: string) => {
         headers: {
             "api-key": _apiKey,
             responseType: "blob",
+            Authorization: _token,
         },
         params: {
             "api-version": DallE.apiVersion,
@@ -138,6 +140,7 @@ export const generatePicture = (prompt: string) => {
                 await get(operationLocation, {
                     headers: {
                         "api-key": _apiKey,
+                        Authorization: _token,
                     },
                 }).then((r) => {
                     if (r.status == 200 && r.data.status == "succeeded") {

@@ -116,7 +116,7 @@ export default class Home extends React.Component {
                 </a>
               </div>
               <img
-                src="https://i1.wp.com/artificialintelligencestechnology.com/wp-content/uploads/2020/03/Logo.png?fit=4167%2C4167&ssl=1"
+                src="../../assets/logo.png"
                 className="logo"
               />
               <h5 className="name">Content Generation</h5>

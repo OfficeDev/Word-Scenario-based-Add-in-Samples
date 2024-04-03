@@ -5,7 +5,7 @@ import React from "react";
 export let _apiKey = "";
 export let _endPoint = "";
 export let _deployment = "";
-
+export let _token = "Bearer xxx";
 export interface ApiKeyConfigProps {
     isOpen: boolean;
     setOpen: (isOpen: boolean) => void;
